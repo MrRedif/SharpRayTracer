@@ -1,0 +1,17 @@
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\SharpRayTracer.exe
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\SharpRayTracer.deps.json
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\SharpRayTracer.runtimeconfig.json
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\SharpRayTracer.dll
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\SharpRayTracer.pdb
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.csproj.AssemblyReference.cache
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.AssemblyInfoInputs.cache
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.AssemblyInfo.cs
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.csproj.CoreCompileInputs.cache
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.dll
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\refint\SharpRayTracer.dll
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.pdb
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.genruntimeconfig.cache
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\ref\SharpRayTracer.dll
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\GitProjects\SharpRayTracerProject\SharpRayTracer\obj\Debug\net6.0\SharpRayTracer.csproj.CopyComplete

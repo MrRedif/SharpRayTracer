@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Dc0IK42QD1/ZOQBuzBRnIgBS5AqZMEoAUyhgBdsDQ5nFb+1qeZW7ENpn3pFdGlnZaRkaFa+kAX1JxXWwFws1Iw==",
+  "success": true,
+  "projectFilePath": "D:\\GitProjects\\SharpRayTracerProject\\SharpRayTracer\\SharpRayTracer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mr. Pdf\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
