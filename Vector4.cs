@@ -145,13 +145,11 @@ namespace SharpRayTracer
         {
             r = g = b = 0;
         }
-
+        public Color(JArray jArray) : this(jArray.ToObject<double[]>()!) { }
         public static Color MultiplyChannels(Color a,Color b)
         {
             return new Color(a.r * b.r, a.g * b.g, a.b * b.b);
         }
-
-        public Color(Newtonsoft.Json.Linq.JArray jArray) : this(jArray.ToObject<double[]>()!) { }
 
         public static explicit operator Vector4(Color c)  // explicit byte to digit conversion operator
         {
@@ -182,6 +180,11 @@ namespace SharpRayTracer
         public override string ToString()
         {
             return Math.Floor(r) + " " + Math.Floor(g) + " " + Math.Floor(b);
+        }
+
+        public Color Clamp01Channels()
+        {
+            return new Color(Math.Min(r, 1), Math.Min(g, 1), Math.Min(b, 1));
         }
     }
 }

@@ -7,16 +7,18 @@ namespace SharpRayTracer
         public Camera cam;
         public Color backgroundColor;
         public Color ambient;
-
-        public Vector4 lightDirection;
-        public Color lightColor;
-
+        public List<Light> lights = new List<Light>();
         public ObjectGroup group;
 
         public Scene(dynamic s)
         {
             if (s.orthocamera != null) cam = new OrthographicCamera(s.orthocamera);
             else if (s.perspectivecamera != null) cam = new PerspectiveCamera(s.perspectivecamera);
+
+            if(s.materials != null)
+            {
+                MaterialList.AddNewMaterials(s.materials);
+            }
 
             if (s.background != null)
             {
@@ -26,8 +28,18 @@ namespace SharpRayTracer
 
             if(s.light != null)
             {
-                lightDirection = new Vector4(s.light.direction);
-                lightColor = new Color(s.light.color);
+                var lightDirection = new Vector4(s.light.direction);
+                var lightColor = new Color(s.light.color);
+                lights.Add(new DirectionalLight(lightColor,lightDirection));
+            }
+            if (s.lights != null)
+            {
+                foreach (var light in s.lights)
+                {
+                    var lightDirection = new Vector4(light["directionalLight"]["direction"]);
+                    var lightColor = new Color(light["directionalLight"]["color"]);
+                    lights.Add(new DirectionalLight(lightColor, lightDirection));
+                }
             }
 
             if (s.group != null)

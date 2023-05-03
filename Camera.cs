@@ -8,6 +8,7 @@ namespace SharpRayTracer
 {
     public abstract class Camera
     {
+        public Vector4 center;
         public static double ASPECT_RATIO;
         /// <summary>
         /// Generate ray from camera viewport.
@@ -23,7 +24,6 @@ namespace SharpRayTracer
 
     public class OrthographicCamera : Camera
     {
-        Vector4 center;
         Vector4 direction;
         Vector4 up;
         double size;
@@ -60,7 +60,6 @@ namespace SharpRayTracer
 
     public class PerspectiveCamera : Camera
     {
-        Vector4 center;
         Vector4 direction;
         Vector4 up;
         double angle;

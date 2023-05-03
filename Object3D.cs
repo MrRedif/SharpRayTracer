@@ -10,7 +10,7 @@ namespace SharpRayTracer
 {
     public abstract class Object3D
     {
-        public Color color = new Color();
+        public Material material;
         public virtual void Intersect(Ray ray, double tmin, ref Hit hit)
         {
 
@@ -21,17 +21,17 @@ namespace SharpRayTracer
     {
         public double radius;
         public Vector4 center = new Vector4();
-        public Sphere(Vector4 center, double radius, Color color)
+        public Sphere(Vector4 center, double radius, Material material)
         {
             this.center = center;
             this.radius = radius;
-            this.color = color;
+            this.material = material;
         }
         public Sphere(dynamic d)
         {
             center = new Vector4((JArray)d.center);
             radius = d.radius;
-            color = new Color((JArray)d.color);
+            material = MaterialList.Materials[(int)d.material];
         }
 
         public override void Intersect(Ray ray, double tmin, ref Hit hit)
@@ -63,8 +63,9 @@ namespace SharpRayTracer
             if (t0 > tmin && hit.t > t0)
             {
                 hit.normal = (ray.origin + ray.direction * t0 - center).Normalized;
-                hit.color = color;
+                hit.material = material;
                 hit.t = t0;
+                hit.isHitObject = true;
             }
 
 
@@ -166,8 +167,9 @@ namespace SharpRayTracer
             if (t > tmin && t < hit.t)
             {
                 hit.t = t;
-                hit.color = color;
+                hit.material = material;
                 hit.normal = N;
+                hit.isHitObject = true;
             }
 
 
@@ -178,7 +180,7 @@ namespace SharpRayTracer
             v1 = new Vector4((JArray)d.v1);
             v2 = new Vector4((JArray)d.v2);
             v3 = new Vector4((JArray)d.v3);
-            color = new Color(d.color);
+            material = MaterialList.Materials[(int)d.material];
         }
     }
 
@@ -193,8 +195,9 @@ namespace SharpRayTracer
             if (t > tmin && t < hit.t)
             {
                 hit.t = t;
-                hit.color = color;
+                hit.material = material;
                 hit.normal = normal;
+                hit.isHitObject = true;
             }
         }
 
@@ -202,7 +205,7 @@ namespace SharpRayTracer
         {
             normal = new Vector4(d.normal);
             this.d = d.offset;
-            color = new Color(d.color);
+            material = MaterialList.Materials[(int)d.material];
         }
     }
 

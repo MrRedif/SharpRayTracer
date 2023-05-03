@@ -2,8 +2,30 @@
 
 namespace SharpRayTracer
 {
+    public class RayTracer
+    {
+        public static Color TraceRay(Ray ray,int bounces,double weight,int indexOfRefraction,Hit hit)
+        {
+            Color col = new Color();
+            foreach (var light in Program.scene.lights)
+            {
+                var worldPos = hit.t * ray.direction + Program.scene.cam.center;
+                Ray posToLight = new Ray(worldPos, -1 *((DirectionalLight)light).direction);
+                Hit lHit = new Hit(PhongMaterial.DEF_MAT);
+                Program.scene.group.Intersect(posToLight, 0.00001, ref lHit);
+                
+                if(!lHit.isHitObject)
+                    col += hit.material.Shade(ray, hit, light);
+            }
+            Color ambient =
+                    Color.MultiplyChannels(Program.scene.ambient, hit.material.diffuseColor);
+            return (col + ambient).Clamp01Channels();
+        }
+    }
+
     class Program
     {
+        public static Scene scene;
         const string OUTPUT_PATH = @"output6.ppm";
         const string OUTPUT_PATH_DEPTH = @"outputDepth.ppm";
         static string OUT_TEXT_HEADER = "P3\n" + WIDTH + " " + HEIGHT + "\n255\n";
@@ -15,26 +37,22 @@ namespace SharpRayTracer
         {
 
             //Json
-            var sceneJson = File.ReadAllText(@"scene7_squashed_rotated_sphere.json");
+            var sceneJson = File.ReadAllText(@"scene2_plane_sphere.json");
             var json = JsonConvert.DeserializeObject<dynamic>(sceneJson);
-            Scene scene = new Scene(json);
+            scene = new Scene(json);
 
             double camPlane = FAR - NEAR;
-
-            var irlDirection = -1 * scene.lightDirection;
 
             for (int i = 0; i < HEIGHT; i++)
             {
                 for (int j = 0; j < WIDTH; j++)
                 {
-                    Hit hit = new Hit(scene.backgroundColor);
+                    Hit hit = new Hit(PhongMaterial.DEF_MAT);
                     var ray = scene.cam.GenerateRay(j / (double)WIDTH, 1 - i / (double)HEIGHT);
-                    scene.group.Intersect(ray, 0, ref hit);
+                    scene.group.Intersect(ray, 0.00001, ref hit);
 
                     //Light
-                    var finalColor = Color.MultiplyChannels(hit.color, scene.ambient) +
-                        Math.Max(irlDirection.Dot(hit.normal),0) * 
-                        Color.MultiplyChannels(hit.color,scene.lightColor);
+                    var finalColor = RayTracer.TraceRay(ray, 3, 0.5, 1, hit);
 
 
                     finalColor = finalColor * 255;

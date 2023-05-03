@@ -26,13 +26,13 @@ namespace SharpRayTracer
 
     public class Hit
     {
-        public Color color = new Color(0, 0, 0);
+        public Material material;
         public double t = double.MaxValue;
         public Vector4 normal = new Vector4();
-
-        public Hit(Color col)
+        public bool isHitObject;
+        public Hit(Material material)
         {
-            color = col;
+            this.material = material;
         }
     }
 }
