@@ -1,0 +1,89 @@
+{
+	"perspectivecamera" : {
+		"center" : [0, 2, 10],
+		"direction" : [0, 0, -1],
+		"up" : [0, 1, 0],
+		"angle" : 75
+	},
+	"background" : {
+		"color" : [0.2, 0.2, 0.2],
+		"ambient" : [0.3, 0.3, 0.3]
+	},
+	"group" : [
+		{ 
+			"sphere" : {
+				"center" : [2, 1, 0],
+				"radius" : 2,
+				"material" : 3
+			}
+		},
+		{ 
+			"sphere" : {
+				"center" : [-2, 2, 0],
+				"radius" : 1,
+				"material" : 3
+			}
+		},
+		{ 
+			"sphere" : {
+				"center" : [0, 8, -5],
+				"radius" : 4,
+				"material" : 3
+			}
+		},
+		{
+			"plane" : {
+				"normal" : [0.01, 1, 0.01],
+				"offset" : -1,
+				"material" : 2
+			}
+		}
+	],
+	"lights" : [
+		{
+			"directionalLight" : {
+				"direction" : [0, -1, 0],
+				"color" : [0, 0, 1]
+			}
+		},
+		{
+			"directionalLight" : {
+				"direction" : [0, 1, 0],
+				"color" : [1, 0, 0]
+			}
+		}
+	],
+	"materials" : [
+		{
+			"phongMaterial" : {
+				"diffuseColor" : [1, 1, 1]
+			}
+		},
+		{
+			"phongMaterial" : {
+				"diffuseColor" : [0, 1, 0]
+			}
+		}
+		,
+		{
+			"phongMaterial" : {
+				"diffuseColor" : [1, 1, 1],
+				"specularColor" : [1, 1, 1],
+				"exponent" : 50,
+				"transparentColor" : [0, 0, 0],
+				"reflectiveColor" : [1, 0, 0],
+				"indexOfRefraction" : 1
+			}
+		},
+		{
+			"phongMaterial" : {
+				"diffuseColor" : [1, 1, 1],
+				"specularColor" : [1, 0, 0],
+				"exponent" : 50,
+				"transparentColor" : [0, 0, 0],
+				"reflectiveColor" : [0.9, 0.9, 0.9],
+				"indexOfRefraction" : 1
+			}
+		}
+	]
+}

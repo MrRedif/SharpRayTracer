@@ -1,6 +1,6 @@
 {
 	"perspectivecamera" : {
-		"center" : [0, 0, 10],
+		"center" : [0, 0, 5],
 		"direction" : [0, 0, -1],
 		"up" : [0, 1, 0],
 		"angle" : 30
@@ -12,7 +12,7 @@
 	"group" : [
 		{ 
 			"sphere" : {
-				"center" : [0, 0.0, 0],
+				"center" : [0, 0, 0],
 				"radius" : 1,
 				"material" : 0
 			}

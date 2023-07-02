@@ -36,8 +36,6 @@ namespace SharpRayTracer
 
         public override void Intersect(Ray ray, double tmin, ref Hit hit)
         {
-            ray.direction = ray.direction.Normalized;
-
             Vector4 l = center - ray.origin;
             double tca = l.Dot(ray.direction);
             double d2 = l.Dot(l) - tca * tca;
@@ -123,7 +121,6 @@ namespace SharpRayTracer
 
         public override void Intersect(Ray ray, double tmin, ref Hit hit)
         {
-            ray.direction = ray.direction.Normalized;
 
             //Find triangle normal
             var a = v2 - v1;
@@ -191,7 +188,7 @@ namespace SharpRayTracer
 
         public override void Intersect(Ray ray, double tmin, ref Hit hit)
         {
-            var t = (d + ray.origin.Dot(normal)) / ray.direction.Dot(normal);
+            var t = -(-d + ray.origin.Dot(normal)) / ray.direction.Dot(normal);
             if (t > tmin && t < hit.t)
             {
                 hit.t = t;

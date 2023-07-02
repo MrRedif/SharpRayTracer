@@ -82,9 +82,9 @@ namespace SharpRayTracer
         public override Ray GenerateRay(double x, double y)
         {
             Vector4 horizontal = direction.Cross(up);
-            Vector4 q = (1 / Math.Tan(angle / 2 * Math.PI / 180)) * direction + up * (y - 0.5) + horizontal * (x - 0.5); 
-            q = q.Normalized;
-            return new Ray(center, q);
+            Vector4 rayDirection = (0.5 / Math.Tan(angle / 2 * (Math.PI / 180))) * direction + up * (y - 0.5) + horizontal * (x - 0.5); 
+            rayDirection = rayDirection.Normalized;
+            return new Ray(center, rayDirection);
         }
     }
 }

@@ -8,15 +8,16 @@ namespace SharpRayTracer
         public double x, y, z, w;
 
         public double Magnitude => Math.Sqrt(x * x + y * y + z * z);
-        public Vector4 Normalized { 
+        public Vector4 Normalized
+        {
             get
             {
                 var mag = Magnitude;
                 return new Vector4(x / mag, y / mag, z / mag);
-            } 
+            }
         }
 
-        public static Vector4 Up = new Vector4(0,1,0,0);
+        public static Vector4 Up = new Vector4(0, 1, 0, 0);
         public static Vector4 Right = new Vector4(1, 0, 0, 0);
         public static Vector4 Foward = new Vector4(0, 0, 1, 0);
         public static Vector4 Zero = new Vector4();
@@ -70,9 +71,23 @@ namespace SharpRayTracer
             return new Vector4(v.x / mag, v.y / mag, v.z / mag);
         }
 
+        public static Vector4 MirrorVector(Vector4 normal, Vector4 incoming)
+        {
+            return incoming - 2 * normal.Dot(incoming) * normal;
+        }
+
+        public static Vector4 TransmittedVector(Vector4 normal, Vector4 incoming, double index_i, double index_t)
+        {
+            double nr = index_i / index_t;
+            double ndi = normal.Dot(incoming);
+            double sqr = 1 - nr*nr*(1 - ndi*ndi);
+
+            return ((nr * ndi - sqr) * normal - nr * incoming).Normalized;
+        }
+
         public override string ToString()
         {
-            return string.Format("x:{0} y:{1} z:{2} w:{3}",x,y,z,w);
+            return string.Format("x:{0} y:{1} z:{2} w:{3}", x, y, z, w);
         }
 
         #region Operators
@@ -116,7 +131,10 @@ namespace SharpRayTracer
     public class Color
     {
         public double r, g, b;
-        public Color(double r,double g,double b)
+        public readonly static Color black = new Color(0, 0, 0);
+
+        public double Magnitude => Math.Sqrt(r * r + g * g + b * b);
+        public Color(double r, double g, double b)
         {
             this.r = r;
             this.g = g;
@@ -146,7 +164,7 @@ namespace SharpRayTracer
             r = g = b = 0;
         }
         public Color(JArray jArray) : this(jArray.ToObject<double[]>()!) { }
-        public static Color MultiplyChannels(Color a,Color b)
+        public static Color MultiplyChannels(Color a, Color b)
         {
             return new Color(a.r * b.r, a.g * b.g, a.b * b.b);
         }
@@ -175,6 +193,16 @@ namespace SharpRayTracer
         public static Color operator +(Color a, Color b)
         {
             return new Color(a.r + b.r, a.g + b.g, a.b + b.b);
+        }
+
+        public static bool operator ==(Color a, Color b)
+        {
+            return a.r == b.r && a.g == b.g && a.b == b.b;
+        }
+
+        public static bool operator !=(Color a, Color b)
+        {
+            return a.r != b.r || a.g != b.g || a.b != b.b;
         }
 
         public override string ToString()

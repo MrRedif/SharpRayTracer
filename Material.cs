@@ -12,9 +12,9 @@ namespace SharpRayTracer
         public Color diffuseColor;
         public Color reflectiveColor;
         public Color transparentColor;
-        public int indexOfRefraction;
+        public double indexOfRefraction;
 
-        public Material(Color diffuseColor, Color reflectiveColor, Color transparentColor, int indexOfRefraction)
+        public Material(Color diffuseColor, Color reflectiveColor, Color transparentColor, double indexOfRefraction)
         {
             this.diffuseColor = diffuseColor;
             this.reflectiveColor = reflectiveColor;
@@ -35,7 +35,7 @@ namespace SharpRayTracer
         public Color specularColor;
         public double exponent;
         public PhongMaterial(Color diffuseColor, Color reflectiveColor,
-            Color transparentColor, int indexOfRefraction, Color specularColor, double exponent)
+            Color transparentColor, double indexOfRefraction, Color specularColor, double exponent)
             : base(diffuseColor, reflectiveColor, transparentColor, indexOfRefraction)
         {
             this.specularColor = specularColor;
@@ -51,7 +51,7 @@ namespace SharpRayTracer
                 Color.MultiplyChannels(hit.material.diffuseColor,dirLight.color) * Math.Max((-1 * dirLight.direction).Dot(hit.normal), 0);
             
             Color specular =
-                 Color.MultiplyChannels(hit.material.reflectiveColor,dirLight.color) * Math.Max(ray.direction.Dot(reflection), 0);
+                 Color.MultiplyChannels(hit.material.reflectiveColor,dirLight.color) * Math.Pow(Math.Max(ray.direction.Dot(reflection), 0),exponent);
             
             return (diffuse + specular).Clamp01Channels();
         }
@@ -71,17 +71,29 @@ namespace SharpRayTracer
                 switch (name)
                 {
                     case "phongMaterial":
-                        Color sCol = new Color();
+                        Color specularCol = new Color();
+                        Color reflectiveCol = new Color();
+                        Color transparentCol = new Color(1,1,1);
                         double ex = 0;
-                        if(item["phongMaterial"]["specularColor"] != null)
-                            sCol = new Color(item["phongMaterial"]["specularColor"].Values<double>().ToArray());
+                        double index = 0;
+                        if (item["phongMaterial"]["specularColor"] != null)
+                            specularCol = new Color(item["phongMaterial"]["specularColor"].Values<double>().ToArray());
+                        
+                        if (item["phongMaterial"]["reflectiveColor"] != null)
+                            reflectiveCol = new Color(item["phongMaterial"]["reflectiveColor"].Values<double>().ToArray());
 
-                        if(item["phongMaterial"]["exponent"] != null)
+                        if (item["phongMaterial"]["transparentColor"] != null)
+                            transparentCol = new Color(item["phongMaterial"]["transparentColor"].Values<double>().ToArray());
+
+                        if (item["phongMaterial"]["exponent"] != null)
                             ex = item["phongMaterial"]["exponent"].ToObject<double>();
 
-                        var dCol = new Color(item["phongMaterial"]["diffuseColor"].Values<double>().ToArray());
+                        if (item["phongMaterial"]["indexOfRefraction"] != null)
+                            index = item["phongMaterial"]["indexOfRefraction"].ToObject<double>();
 
-                        Materials.Add(new PhongMaterial(dCol,new Color(),new Color(),0,sCol,ex));
+                        var diffuseCol = new Color(item["phongMaterial"]["diffuseColor"].Values<double>().ToArray());
+
+                        Materials.Add(new PhongMaterial(diffuseCol,reflectiveCol,transparentCol,index,specularCol,ex));
                         break;
                     default:
                         break;
